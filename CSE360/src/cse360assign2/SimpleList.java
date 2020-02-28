@@ -18,6 +18,42 @@ public class SimpleList {
 	int count = 0;
 	
 	
+	public static void main(String [] args) {
+		
+		SimpleList check = new SimpleList();
+		
+		check.add(1);
+		check.add(2);
+		check.add(3);
+		
+		for(int i = 0; i < check.list.length; i++) {
+			System.out.print(check.list[i]);
+		}
+		System.out.println("\n");
+		
+		System.out.println(check.first());
+		System.out.println(check.last());
+		System.out.println(check.size());
+		
+		check.append(5);
+		check.append(6);
+		
+		for(int i = 0; i < check.list.length; i++) {
+			System.out.print(check.list[i]);
+		}
+		System.out.println("\n");
+		
+		System.out.println(check.first());
+		System.out.println(check.last());
+		System.out.println(check.size());
+		
+		
+		
+		
+		
+	}
+	
+	
 	/**
 	 * Constructor for the <code>SimpleList</code> class
 	 * Sets count to 0, creates a 10 element empty array called list
@@ -149,5 +185,115 @@ public class SimpleList {
 		}
 		return index;
 	}
+	
+	
+	
+	/**
+	 * 
+	 * @param appendInt the integer to be appended to the end of the list
+	 */
+	public void append(int appendInt) {
+		
+		//increasing size of array by 50% if it is full
+		if(count == list.length) {
+			
+			int amount = (list.length/2);
+			int total = list.length + amount;
+			int [] temp = new int [total];
+			
+			for(int counter = 0; counter < list.length; counter++) {
+				temp[counter] = list[counter];
+			}
+			list = temp;
+			
+		}
+		
+		if(count >= 1) {
+			
+			if(list[list.length - 1] == 0) {
+				list[list.length - 1] = appendInt;
+			}
+			else {
+				boolean firstLocation = true;
+				int openIndex = -1;
+				for(int findOpenSpace = list.length - 1; findOpenSpace >= 0; findOpenSpace--) {
+					if(list[findOpenSpace] == 0 && firstLocation) {
+						openIndex = findOpenSpace;
+						firstLocation = false;
+					}
+				}
+				list[openIndex] = appendInt;
+			}
+		}
+		else {
+			list[0] = appendInt;
+		}
+		
+		
+		count++;
+		
+	}
+	
+	/**locates and returns the ifrst integer in the list. If the list is empty, returns -1
+	 * 
+	 * @return the first integer of the list
+	 */
+	public int first() {
+		
+		int toReturn;
+		
+		if(list[0] == 0) {
+			toReturn = -1;
+		}
+		
+		else {
+			toReturn = list[0];
+		}
+		
+		return toReturn;
+	}
+	
+	/**Returns the last element in the list and returns -1 if the list is empty.
+	 * 
+	 * @return the last element in the list, returns -1 if list is empty
+	 */
+	public int last() {
+		
+		int toReturn;
+		boolean isEmpty = true;
+		for(int checkEmpty = 0; checkEmpty < list.length; checkEmpty++) {
+			if(list[checkEmpty] != 0) {
+				isEmpty = false;
+			}
+		}
+		
+		if(isEmpty) {
+			toReturn = -1;
+		}
+		else {
+			toReturn = list[list.length-1];
+		}
+		return toReturn;
+		
+	}
+	
+	/**Returns the "number of possible locations in the list" I took this to mean the amount of integers in the list
+	 * 
+	 * @return the size of the array
+	 */
+	public int size() {
+		
+		int returnSize = 0;
+		for(int sizeCount = 0; sizeCount < list.length; sizeCount++) {
+			if (list[sizeCount] != 0) {
+				returnSize++;
+			}
+		}
+		return returnSize;
+		
+		
+	}
+	
+	
 
 }

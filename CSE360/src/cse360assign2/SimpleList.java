@@ -36,6 +36,22 @@ public class SimpleList {
 	 */
 	
 	public void add(int numberToAdd) {
+		
+		//increasing size of array by 50% if it is full
+		if(count == list.length) {
+			
+			int amount = (list.length/2);
+			int total = list.length + amount;
+			int [] temp = new int [total];
+			
+			for(int counter = 0; counter < list.length; counter++) {
+				temp[counter] = list[counter];
+			}
+			list = temp;
+			
+		}
+		
+		
 		if(count >= 1) {
 			for(int traverse = count; traverse >= 1; traverse--) {
 				list[traverse] = list[traverse-1];
@@ -43,9 +59,7 @@ public class SimpleList {
 		}
 		list[0] = numberToAdd;
 		
-		if(count != 10) {
-			count++;
-		}
+		count++;
 	}
 	
 	/**
@@ -63,6 +77,32 @@ public class SimpleList {
 				count--;
 			}
 		}
+		
+		//reducing size of array if 25% is empty
+		int percent25 = (list.length /4);
+		int emptyAmount = 0;
+		
+		for (int counter = 0; counter < list.length ; counter++) {
+			if(list[counter] == 0) {
+				emptyAmount++;
+			}
+		}	
+			
+		
+		if(emptyAmount > percent25) {
+			if(list.length > 1) {
+				int [] temp = new int [list.length - 1];
+				
+				for(int copy = 0; copy < temp.length; copy++) {
+					temp[copy] = list[copy];
+				}
+				list = temp;
+			}	
+		}
+		
+		
+		
+		
 	}
 	
 	/**
